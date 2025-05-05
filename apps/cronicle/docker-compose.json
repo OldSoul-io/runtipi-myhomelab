@@ -27,6 +27,10 @@
       },
       "volumes": [
         {
+          "hostPath": "${APP_DATA_DIR}/conf",
+          "containerPath": "/opt/cronicle/conf"
+        },
+        {
           "hostPath": "${APP_DATA_DIR}/data/cronicle",
           "containerPath": "/opt/cronicle/data"
         },
