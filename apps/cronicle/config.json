@@ -1,0 +1,18 @@
+{
+  "id": "cronicle",
+  "name": "Cronicle",
+  "version": "0.9.80",
+  "tipi_version": 1,
+  "description": "A multi-server task scheduler and runner. Ideal for cron-like jobs with a web UI and plugins.",
+  "short_desc": "Distributed cron-like task scheduler.",
+  "port": 3012,
+  "categories": ["automation"],
+  "author": "jhuckaby",
+  "website": "http://cronicle.net/",
+  "source": "https://github.com/soulteary/docker-cronicle.git",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": false,
+  "https": true,
+  "supported_architectures": ["amd64", "arm64"]
+}

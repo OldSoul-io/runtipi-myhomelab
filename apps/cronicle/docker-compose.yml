@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  cronicle:
+    image: soulteary/cronicle:0.9.63
+    container_name: cronicle
+    restart: unless-stopped
+    ports:
+      - ${APP_PORT}:3012
+    environment:
+      - TZ=${TZ}
+      - HOSTNAME=cron.${LOCAL_DOMAIN}
+      - CRONICLE_foreground=1
+      - CRONICLE_echo=1
+      - CRONICLE_base_app_url=http://cron.${LOCAL_DOMAIN}:${APP_PORT}
+      - CRONICLE_web_socket_use_hostnames=1
+      - CRONICLE_server_comm_use_hostnames=1
+      - CRONICLE_WebServer__http_port=3012
+      - CRONICLE_WebServer__http_bind_address=0.0.0.0
+      - CRONICLE_WebServer__https=0
+      - CRONICLE_web_direct_connect=0
+    volumes:
+      - ${APP_DATA_DIR}/data/cronicle:/opt/cronicle/data
+      - ${APP_DATA_DIR}/data/logs:/opt/cronicle/logs
+      - ${APP_DATA_DIR}/data/plugins:/opt/cronicle/plugins
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider localhost:3012/api/app/ping || exit 1"
+        ]
+      interval: 5s
+      timeout: 1s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    networks:
+      - tipi_main_network
+    labels:
+      # Main
+      traefik.enable: true
+      traefik.http.middlewares.cronicle-web-redirect.redirectscheme.scheme: https
+      traefik.http.services.cronicle.loadbalancer.server.port: 3012
+      # Web
+      traefik.http.routers.cronicle-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.cronicle-insecure.entrypoints: web
+      traefik.http.routers.cronicle-insecure.service: cronicle
+      traefik.http.routers.cronicle-insecure.middlewares: cronicle-web-redirect
+      # Websecure
+      traefik.http.routers.cronicle.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.cronicle.entrypoints: websecure
+      traefik.http.routers.cronicle.service: cronicle
+      traefik.http.routers.cronicle.tls.certresolver: myresolver
+      # Local domain
+      traefik.http.routers.cronicle-local-insecure.rule: Host(`cron.${LOCAL_DOMAIN}`)
+      traefik.http.routers.cronicle-local-insecure.entrypoints: web
+      traefik.http.routers.cronicle-local-insecure.service: cronicle
+      traefik.http.routers.cronicle-local-insecure.middlewares: cronicle-web-redirect
+      # Local domain secure
+      traefik.http.routers.cronicle-local.rule: Host(`cron.${LOCAL_DOMAIN}`)
+      traefik.http.routers.cronicle-local.entrypoints: websecure
+      traefik.http.routers.cronicle-local.service: cronicle
+      traefik.http.routers.cronicle-local.tls: true
+      runtipi.managed: true
+
+networks:
+  tipi_main_network:
+    external: true
