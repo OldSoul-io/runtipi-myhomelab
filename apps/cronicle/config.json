@@ -15,8 +15,7 @@
   "exposable": true,
   "url_suffix": "cron",
   "https": true,
-  "dynamic": false,
   "supported_architectures": ["amd64"],
-  "created_at": "1746472894473",
-  "updated_at": "1746472910762"
+  "created_at": 1746472894473,
+  "updated_at": 1746472910762
 }
