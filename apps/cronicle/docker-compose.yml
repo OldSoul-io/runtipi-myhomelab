@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   cronicle:
-    image: soulteary/cronicle:0.9.63
+    image: soulteary/cronicle:latest
     container_name: cronicle
     restart: unless-stopped
     ports:

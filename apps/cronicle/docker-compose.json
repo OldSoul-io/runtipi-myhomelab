@@ -2,7 +2,7 @@
   "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
-      "image": "soulteary/cronicle:0.9.63",
+      "image": "soulteary/cronicle:latest",
       "name": "cronicle",
       "internalPort": 3012,
       "isMain": true,
