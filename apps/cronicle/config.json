@@ -9,7 +9,7 @@
   "categories": ["automation"],
   "description": "A multi-server task scheduler and runner. Ideal for cron-like jobs with a web UI and plugins.",
   "tipi_version": 1,
-  "version": "0.9.80",
+  "version": "latest",
   "source": "https://github.com/soulteary/docker-cronicle.git",
   "website": "http://cronicle.net/",
   "exposable": true,
