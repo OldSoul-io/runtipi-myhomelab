@@ -1,5 +1,5 @@
 {
-  "name": "runtipi-appstore",
+  "name": "MyHomeLab",
   "version": "1.0.0",
   "description": "",
   "main": "",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meienberger/runtipi-appstore.git"
+    "url": "git+https://github.com/OldSoul-io/runtipi-myhomelab.git"
   },
   "author": "",
   "license": "GNU General Public License v3.0",
   "bugs": {
-    "url": "https://github.com/meienberger/runtipi-appstore/issues"
+    "url": "https://github.com/OldSoul-io/runtipi-myhomelab/issues"
   },
-  "homepage": "https://github.com/meienberger/runtipi-appstore#readme",
+  "homepage": "https://github.com/OldSoul-io/runtipi-myhomelab#readme",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.8.0",
