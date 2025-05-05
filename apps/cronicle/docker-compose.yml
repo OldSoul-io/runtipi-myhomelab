@@ -20,7 +20,7 @@ services:
       - CRONICLE_WebServer__https=0
       - CRONICLE_web_direct_connect=0
     volumes:
-      - ${APP_DATA_DIR}/data/config.json:/opt/cronicle/conf/config.json
+      - ${APP_DATA_DIR}/conf:/opt/cronicle/conf
       - ${APP_DATA_DIR}/data/cronicle:/opt/cronicle/data
       - ${APP_DATA_DIR}/data/logs:/opt/cronicle/logs
       - ${APP_DATA_DIR}/data/plugins:/opt/cronicle/plugins
