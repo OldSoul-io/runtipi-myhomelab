@@ -4,8 +4,6 @@
     {
       "image": "soulteary/cronicle:0.9.63",
       "name": "cronicle",
-      "containerName": "cronicle",
-      "restart": "unless-stopped",
       "internalPort": 3012,
       "isMain": true,
       "addPorts": [
@@ -40,50 +38,7 @@
           "hostPath": "${APP_DATA_DIR}/data/plugins",
           "containerPath": "/opt/cronicle/plugins"
         }
-      ],
-      "healthcheck": {
-        "test": [
-          "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider localhost:3012/api/app/ping || exit 1"
-        ],
-        "interval": "5s",
-        "timeout": "1s",
-        "retries": 3
-      },
-      "logging": {
-        "driver": "json-file",
-        "options": {
-          "max-size": "10m"
-        }
-      },
-      "networks": ["tipi_main_network"],
-      "labels": {
-        "traefik.enable": "true",
-        "traefik.http.middlewares.cronicle-web-redirect.redirectscheme.scheme": "https",
-        "traefik.http.services.cronicle.loadbalancer.server.port": "3012",
-        "traefik.http.routers.cronicle-insecure.rule": "Host(`${APP_DOMAIN}`)",
-        "traefik.http.routers.cronicle-insecure.entrypoints": "web",
-        "traefik.http.routers.cronicle-insecure.service": "cronicle",
-        "traefik.http.routers.cronicle-insecure.middlewares": "cronicle-web-redirect",
-        "traefik.http.routers.cronicle.rule": "Host(`${APP_DOMAIN}`)",
-        "traefik.http.routers.cronicle.entrypoints": "websecure",
-        "traefik.http.routers.cronicle.service": "cronicle",
-        "traefik.http.routers.cronicle.tls.certresolver": "myresolver",
-        "traefik.http.routers.cronicle-local-insecure.rule": "Host(`cron.${LOCAL_DOMAIN}`)",
-        "traefik.http.routers.cronicle-local-insecure.entrypoints": "web",
-        "traefik.http.routers.cronicle-local-insecure.service": "cronicle",
-        "traefik.http.routers.cronicle-local-insecure.middlewares": "cronicle-web-redirect",
-        "traefik.http.routers.cronicle-local.rule": "Host(`cron.${LOCAL_DOMAIN}`)",
-        "traefik.http.routers.cronicle-local.entrypoints": "websecure",
-        "traefik.http.routers.cronicle-local.service": "cronicle",
-        "traefik.http.routers.cronicle-local.tls": "true",
-        "runtipi.managed": "true"
-      }
+      ]
     }
-  ],
-  "networks": {
-    "tipi_main_network": {
-      "external": true
-    }
-  }
+  ]
 }
